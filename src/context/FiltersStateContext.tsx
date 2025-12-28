@@ -1,15 +1,5 @@
-import {
-  createContext,
-  useCallback,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
-import type {
-  FiltersState,
-  FiltersStateContextType,
-} from "../types/filteredProductsContextType";
-import type { Product } from "../types/productType";
+import { createContext, useMemo, useState, type ReactNode } from "react";
+import type { FiltersStateContextType } from "../types/filteredProductsContextType";
 
 export const FiltersStateContext =
   createContext<FiltersStateContextType | null>(null);
@@ -46,7 +36,7 @@ export const FiltersStateProvider = ({ children }: Props) => {
       uploadingDate,
       setUploadingDate,
     }),
-    []
+    [categories, minPrice, maxPrice, uploadingDate]
   );
 
   return (
