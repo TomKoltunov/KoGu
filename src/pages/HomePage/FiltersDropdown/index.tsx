@@ -7,17 +7,17 @@ type Props = {
   setMaxPrice: (price: number) => void;
   uploadingDate: string;
   setUploadingDate: (uploadingDate: string) => void;
-  onPriceChange: (minPrice: number, maxPrice: number) => void;
 };
 
 export const FiltersDropdown = ({
   uniqueCategories,
   setCategories,
   minPrice,
+  setMinPrice,
   maxPrice,
+  setMaxPrice,
   uploadingDate,
   setUploadingDate,
-  onPriceChange,
 }: Props) => {
   return (
     <div
@@ -51,7 +51,7 @@ export const FiltersDropdown = ({
         id="minPrice-select"
         type="number"
         value={minPrice}
-        onChange={(e) => onPriceChange(Number(e.target.value), maxPrice)}
+        onChange={(e) => setMinPrice(Number(e.target.value))}
         style={{ padding: "4px" }}
       />
 
@@ -60,7 +60,7 @@ export const FiltersDropdown = ({
         id="maxPrice-select"
         type="number"
         value={maxPrice}
-        onChange={(e) => onPriceChange(minPrice, Number(e.target.value))}
+        onChange={(e) => setMaxPrice(Number(e.target.value))}
         style={{ padding: "4px" }}
       />
 

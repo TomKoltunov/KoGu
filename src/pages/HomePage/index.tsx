@@ -47,10 +47,6 @@ export const HomePage = () => {
         setMaxPrice={setMaxPrice}
         uploadingDate={uploadingDate}
         setUploadingDate={setUploadingDate}
-        onPriceChange={(minPrice: number, maxPrice: number) => {
-          setMinPrice(minPrice);
-          setMaxPrice(maxPrice);
-        }}
       />
       <ProductList products={products} />
     </div>
