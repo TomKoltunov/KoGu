@@ -11,7 +11,7 @@ export const filterByUploadingDate = (
 ): boolean => {
   const productDateObject = new Date(selectedUploadingDate);
   const filteredDateObject = new Date(uploadingDate);
-  return productDateObject.getTime() >= filteredDateObject.getTime();
+  return productDateObject.getTime() < filteredDateObject.getTime();
 };
 
 export const HomePage = () => {
@@ -51,7 +51,7 @@ export const HomePage = () => {
           : "";
       })
       .filter((product) => {
-        return filterByUploadingDate(product.uploadingDate, uploadingDate);
+        return !filterByUploadingDate(product.uploadingDate, uploadingDate);
       });
   }, [
     products,
