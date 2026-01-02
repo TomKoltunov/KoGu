@@ -1,0 +1,39 @@
+.page {
+  padding-top: 88px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 40px;
+
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.title {
+  margin: 0 0 10px 0;
+  font-size: 34px;
+  letter-spacing: -0.5px;
+}
+
+.text {
+  color: rgba(10, 12, 16, 0.7);
+  line-height: 1.5;
+  font-size: 16px;
+  margin-bottom: 14px;
+}
+
+.card {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.cardTitle {
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.cardText {
+  color: rgba(10, 12, 16, 0.7);
+  line-height: 1.4;
+}

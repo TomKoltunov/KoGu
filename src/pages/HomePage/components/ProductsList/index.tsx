@@ -1,5 +1,6 @@
 import type { Product } from "../../../../types/productType";
 import { ProductCard } from "../ProductCard";
+import styles from "./styles.module.css";
 
 type Props = {
   products: Product[];
@@ -7,13 +8,7 @@ type Props = {
 
 export const ProductList = ({ products }: Props) => {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-        gap: "16px",
-      }}
-    >
+    <div className={styles.grid}>
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}

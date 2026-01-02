@@ -1,0 +1,174 @@
+.card {
+  border-radius: 18px;
+  padding: 14px;
+
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.85);
+
+  display: flex;
+  flex-direction: column;
+
+  /* IMPORTANT: makes all cards same height in the grid row */
+  height: 100%;
+
+  gap: 10px;
+
+  transition: transform 140ms ease, box-shadow 160ms ease,
+    border-color 160ms ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 0, 0, 0.14);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* -------- TOP (Name + meta) -------- */
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  /* fixed “row” height across cards */
+  min-height: 56px;
+}
+
+.name {
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: -0.2px;
+  color: rgba(10, 12, 16, 0.92);
+
+  /* clamp name to 1 line so title row stays aligned */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(10, 12, 16, 0.6);
+  font-size: 12px;
+
+  /* also keep meta row stable */
+  min-height: 18px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 4px 8px;
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  font-weight: 700;
+  color: rgba(10, 12, 16, 0.8);
+
+  /* don’t allow a badge to wrap and change row height */
+  white-space: nowrap;
+}
+
+.dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.date {
+  white-space: nowrap;
+}
+
+/* -------- DESCRIPTION -------- */
+.description {
+  color: rgba(10, 12, 16, 0.72);
+  font-size: 14px;
+  line-height: 1.35;
+
+  /* fixed “row” height across cards */
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* same number of lines for all cards */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  /* exact reserved space for 3 lines */
+  min-height: calc(1.35em * 3);
+}
+
+/* -------- INFO ROW (Seller + Price) -------- */
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+
+  /* fixed “row” height across cards */
+  min-height: 52px;
+}
+
+.info {
+  min-width: 0;
+}
+
+.infoLabel,
+.priceLabel {
+  font-size: 12px;
+  color: rgba(10, 12, 16, 0.55);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.infoValue {
+  font-size: 13px;
+  color: rgba(10, 12, 16, 0.84);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 140px;
+
+  line-height: 1.2;
+}
+
+.price {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.priceValue {
+  font-size: 16px;
+  font-weight: 900;
+  color: rgba(10, 12, 16, 0.92);
+  line-height: 1.2;
+}
+
+/* -------- BUTTON pinned to bottom -------- */
+.button {
+  margin-top: auto; /* IMPORTANT: pushes button to the bottom */
+  border: none;
+  border-radius: 14px;
+  padding: 10px 12px;
+
+  font-weight: 900;
+  cursor: pointer;
+
+  background: rgba(10, 12, 16, 0.92);
+  color: white;
+
+  transition: transform 120ms ease, opacity 160ms ease;
+}
+
+.button:hover {
+  opacity: 0.92;
+}
+
+.button:active {
+  transform: translateY(1px);
+}

@@ -1,4 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
+import styles from "./styles.module.css";
 
 type Props = {
   uniqueCategories: string[];
@@ -34,71 +35,77 @@ export const FiltersDropdown = ({
   };
 
   return (
-    <div
-      style={{
-        padding: "10px",
-        border: "1px solid #ccc",
-        borderRadius: "4px",
-        display: "flex",
-        flexDirection: "column",
-        gap: "6px",
-        maxWidth: "250px",
-      }}
-    >
-      <div>Categories: </div>
+    <section className={styles.card}>
+      <div className={styles.cardTitle}>Filters</div>
 
-      {uniqueCategories.map((category) => {
-        const checked = selectedCategories.includes(category);
-        const checkboxId = `${category}`;
-        return (
-          <label
-            key={category}
-            htmlFor={checkboxId}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "4px 2px",
-              cursor: "pointer",
-            }}
-          >
-            <input
-              id={checkboxId}
-              type="checkbox"
-              checked={checked}
-              onChange={() => toggleCategory(category)}
-            />
-            <span>{category}</span>
-          </label>
-        );
-      })}
+      <div className={styles.group}>
+        <div className={styles.label}>Categories</div>
 
-      <label htmlFor="minPrice-select">Min Price:</label>
-      <input
-        id="minPrice-select"
-        type="number"
-        value={minPrice === 0 ? "" : minPrice}
-        onChange={(e) => setMinPrice(Number(e.target.value))}
-        style={{ padding: "4px" }}
-      />
+        <div className={styles.checkboxList}>
+          {uniqueCategories.map((category) => {
+            const checked = selectedCategories.includes(category);
+            const checkboxId = `${category}`;
+            return (
+              <label
+                key={category}
+                htmlFor={checkboxId}
+                className={styles.checkboxRow}
+              >
+                <input
+                  id={checkboxId}
+                  className={styles.checkbox}
+                  type="checkbox"
+                  checked={checked}
+                  onChange={() => toggleCategory(category)}
+                />
+                <span className={styles.checkboxText}>{category}</span>
+              </label>
+            );
+          })}
+        </div>
+      </div>
 
-      <label htmlFor="maxPrice-select">Max Price:</label>
-      <input
-        id="maxPrice-select"
-        type="number"
-        value={maxPrice === 100 ? "" : maxPrice}
-        onChange={(e) => setMaxPrice(Number(e.target.value))}
-        style={{ padding: "4px" }}
-      />
+      <div className={styles.group}>
+        <label className={styles.label} htmlFor="minPrice-select">
+          Min price
+        </label>
+        <input
+          id="minPrice-select"
+          className={styles.input}
+          type="number"
+          value={minPrice === 0 ? "" : minPrice}
+          onChange={(e) => setMinPrice(Number(e.target.value))}
+          placeholder="0"
+        />
+      </div>
 
-      <label htmlFor="uploadingDate-select">Uploading Date:</label>
-      <input
-        id="uploadingDate-select"
-        type="date"
-        value={uploadingDate}
-        onChange={(e) => setUploadingDate(e.target.value)}
-        style={{ padding: "4px" }}
-      />
-    </div>
+      <div className={styles.group}>
+        <label className={styles.label} htmlFor="maxPrice-select">
+          Max price
+        </label>
+        <input
+          id="maxPrice-select"
+          className={styles.input}
+          type="number"
+          value={maxPrice === 100 ? "" : maxPrice}
+          onChange={(e) => setMaxPrice(Number(e.target.value))}
+          placeholder="100"
+        />
+      </div>
+
+      <div className={styles.group}>
+        <label className={styles.label} htmlFor="uploadingDate-select">
+          Uploaded after
+        </label>
+        <input
+          id="uploadingDate-select"
+          className={styles.input}
+          type="date"
+          value={uploadingDate}
+          onChange={(e) => setUploadingDate(e.target.value)}
+        />
+        <div className={styles.hint}>Leave empty to include all dates.</div>
+      </div>
+    </section>
   );
 };

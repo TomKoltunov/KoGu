@@ -1,0 +1,57 @@
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 64px;
+  z-index: 50;
+
+  background: rgba(245, 246, 248, 0.9);
+  backdrop-filter: blur(10px);
+
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.inner {
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 16px;
+}
+
+.brand {
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  font-size: 18px;
+}
+
+.links {
+  display: flex;
+  gap: 10px;
+}
+
+.link {
+  text-decoration: none;
+  color: rgba(10, 12, 16, 0.8);
+
+  padding: 10px 12px;
+  border-radius: 10px;
+
+  transition: background 160ms ease, color 160ms ease, transform 120ms ease;
+}
+
+.link:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.link:active {
+  transform: translateY(1px);
+}
+
+.active {
+  color: rgba(10, 12, 16, 1);
+  background: rgba(0, 0, 0, 0.08);
+}

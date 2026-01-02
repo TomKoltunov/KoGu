@@ -5,6 +5,7 @@ import { FiltersDropdown } from "./FiltersDropdown";
 import { ProductList } from "./components/ProductsList";
 import type { Product } from "../../types/productType";
 import { useDebounce } from "../../hooks/useDebounce";
+import styles from "./styles.module.css";
 
 export const filterByUploadingDate = (
   selectedUploadingDate: string,
@@ -66,37 +67,64 @@ export const HomePage = () => {
   ]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        flexDirection: "column",
-      }}
-    >
-      <h1>Shop KoGu</h1>
-      <input
-        type="text"
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-      />
-      {isLoading ? (
-        <span style={{ color: "red", fontSize: "3rem", fontWeight: 800 }}>
-          Loading Products...
-        </span>
-      ) : (
+    <div className={styles.page}>
+      <header className={styles.header}>
         <div>
-          <FiltersDropdown
-            uniqueCategories={uniqueCategories}
-            selectedCategories={selectedCategories}
-            setSelectedCategories={setSelectedCategories}
-            minPrice={minPrice}
-            setMinPrice={setMinPrice}
-            maxPrice={maxPrice}
-            setMaxPrice={setMaxPrice}
-            uploadingDate={uploadingDate}
-            setUploadingDate={setUploadingDate}
+          <h1 className={styles.title}>Shop KoGu</h1>
+          <p className={styles.subtitle}>
+            Search products, filter by category/price/date, and add items to
+            your cart.
+          </p>
+        </div>
+
+        <div className={styles.searchWrap}>
+          <input
+            className={styles.search}
+            type="text"
+            placeholder="Bonsai tree…"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
           />
-          <ProductList products={filteredProducts} />
+          <div className={styles.searchHint}>
+            {debouncedValue
+              ? `Searching: “${debouncedValue}”`
+              : "Tip: try a category name or a seller"}
+          </div>
+        </div>
+      </header>
+
+      {isLoading ? (
+        <div className={styles.loadingCard}>
+          <div className={styles.spinner} aria-hidden="true" />
+          <div className={styles.loadingText}>Loading products…</div>
+        </div>
+      ) : (
+        <div className={styles.content}>
+          <aside className={styles.filters}>
+            <FiltersDropdown
+              uniqueCategories={uniqueCategories}
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+              minPrice={minPrice}
+              setMinPrice={setMinPrice}
+              maxPrice={maxPrice}
+              setMaxPrice={setMaxPrice}
+              uploadingDate={uploadingDate}
+              setUploadingDate={setUploadingDate}
+            />
+          </aside>
+
+          <main className={styles.list}>
+            <ProductList products={filteredProducts} />
+            {filteredProducts.length === 0 ? (
+              <div className={styles.emptyState}>
+                <div className={styles.emptyTitle}>No results</div>
+                <div className={styles.emptySub}>
+                  Try clearing some filters or searching for something else.
+                </div>
+              </div>
+            ) : null}
+          </main>
         </div>
       )}
     </div>
