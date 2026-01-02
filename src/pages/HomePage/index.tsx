@@ -88,7 +88,7 @@ export const HomePage = () => {
           <div className={styles.searchHint}>
             {debouncedValue
               ? `Searching: “${debouncedValue}”`
-              : "Tip: try a category name or a seller"}
+              : "Tip: try a product name or a description"}
           </div>
         </div>
       </header>
