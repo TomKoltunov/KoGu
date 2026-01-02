@@ -18,7 +18,7 @@ export const todayDateInStringFormat = (): string => {
 };
 
 export const FiltersStateProvider = ({ children }: Props) => {
-  const [categories, setCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(100);
   const [uploadingDate, setUploadingDate] = useState<string>(
@@ -27,8 +27,8 @@ export const FiltersStateProvider = ({ children }: Props) => {
 
   const contextValue: FiltersStateContextType = useMemo(
     () => ({
-      categories,
-      setCategories,
+      selectedCategories,
+      setSelectedCategories,
       minPrice,
       setMinPrice,
       maxPrice,
@@ -36,7 +36,7 @@ export const FiltersStateProvider = ({ children }: Props) => {
       uploadingDate,
       setUploadingDate,
     }),
-    [categories, minPrice, maxPrice, uploadingDate]
+    [selectedCategories, minPrice, maxPrice, uploadingDate]
   );
 
   return (

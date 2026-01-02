@@ -1,6 +1,9 @@
+import type { Dispatch, SetStateAction } from "react";
+
 type Props = {
   uniqueCategories: string[];
-  setCategories: (categories: string[]) => void;
+  selectedCategories: string[];
+  setSelectedCategories: Dispatch<SetStateAction<string[]>>;
   minPrice: number;
   setMinPrice: (price: number) => void;
   maxPrice: number;
@@ -11,7 +14,8 @@ type Props = {
 
 export const FiltersDropdown = ({
   uniqueCategories,
-  setCategories,
+  selectedCategories,
+  setSelectedCategories,
   minPrice,
   setMinPrice,
   maxPrice,
@@ -19,6 +23,16 @@ export const FiltersDropdown = ({
   uploadingDate,
   setUploadingDate,
 }: Props) => {
+  const toggleCategory = (category: string): void => {
+    setSelectedCategories((prevSelectedCategories) =>
+      prevSelectedCategories.includes(category)
+        ? prevSelectedCategories.filter(
+            (selectedCategory) => selectedCategory !== category
+          )
+        : [...prevSelectedCategories, category]
+    );
+  };
+
   return (
     <div
       style={{
@@ -31,20 +45,33 @@ export const FiltersDropdown = ({
         maxWidth: "250px",
       }}
     >
-      <label htmlFor="categories-select">Categories:</label>
-      <select
-        id="categories-select"
-        value={uniqueCategories}
-        onChange={(e) => setCategories([e.target.value])}
-        multiple
-        style={{ padding: "4px" }}
-      >
-        {uniqueCategories.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
+      <div>Categories: </div>
+
+      {uniqueCategories.map((category) => {
+        const checked = selectedCategories.includes(category);
+        const checkboxId = `${category}`;
+        return (
+          <label
+            key={category}
+            htmlFor={checkboxId}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "4px 2px",
+              cursor: "pointer",
+            }}
+          >
+            <input
+              id={checkboxId}
+              type="checkbox"
+              checked={checked}
+              onChange={() => toggleCategory(category)}
+            />
+            <span>{category}</span>
+          </label>
+        );
+      })}
 
       <label htmlFor="minPrice-select">Min Price:</label>
       <input

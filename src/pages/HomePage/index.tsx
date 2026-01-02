@@ -5,19 +5,21 @@ import { FiltersDropdown } from "./FiltersDropdown";
 import { ProductList } from "./components/ProductsList";
 import type { Product } from "../../types/productType";
 
-export const stringToDateConverter = (stringFormatDate: string): Date => {
-  const extractedYear = Number(stringFormatDate.substring(0, 4));
-  const extractedMonth = Number(stringFormatDate.substring(5, 7));
-  const extractedDay = Number(stringFormatDate.substring(8, 10));
-  const result = new Date(extractedYear, extractedMonth, extractedDay);
-  return result;
+export const filterByUploadingDate = (
+  selectedUploadingDate: string,
+  uploadingDate: string
+): boolean => {
+  const productDateObject = new Date(selectedUploadingDate);
+  const filteredDateObject = new Date(uploadingDate);
+  return productDateObject.getTime() >= filteredDateObject.getTime();
 };
 
 export const HomePage = () => {
   const { products, isLoading } = useProducts({ delay: 500 });
   const [searchValue, setSearchValue] = useState<string>("");
   const {
-    setCategories,
+    selectedCategories,
+    setSelectedCategories,
     minPrice,
     setMinPrice,
     maxPrice,
@@ -27,34 +29,34 @@ export const HomePage = () => {
   } = useFilteredProducts();
 
   const uniqueCategories = useMemo(() => {
-    const categories = products.map((product) => product.category);
-    return [...new Set(categories)];
+    const allCategories = products.map((product) => product.category);
+    return [...new Set(allCategories)];
   }, [products]);
 
   const filteredProducts = useMemo((): Product[] => {
     return products
-      .filter((product) =>
-        product.name.toLowerCase().includes(searchValue) ||
-        product.description.toLowerCase().includes(searchValue)
+      .filter((product) => {
+        return product.name.toLowerCase().includes(searchValue) ||
+          product.description.toLowerCase().includes(searchValue)
           ? product
-          : ""
-      )
-      .filter((product) =>
-        uniqueCategories.includes(product.category) ? "" : product
-      )
-      .filter((product) =>
-        product.price >= minPrice && product.price <= maxPrice ? product : ""
-      )
-      .filter((product) =>
-        stringToDateConverter(product.uploadingDate) <=
-        stringToDateConverter(uploadingDate)
-          ? ""
-          : product
-      );
+          : "";
+      })
+      .filter((product) => {
+        if (selectedCategories.length === 0) return true;
+        return selectedCategories.includes(product.category);
+      })
+      .filter((product) => {
+        return product.price >= minPrice && product.price <= maxPrice
+          ? product
+          : "";
+      })
+      .filter((product) => {
+        return filterByUploadingDate(product.uploadingDate, uploadingDate);
+      });
   }, [
     products,
     searchValue,
-    uniqueCategories,
+    selectedCategories,
     minPrice,
     maxPrice,
     uploadingDate,
@@ -76,7 +78,8 @@ export const HomePage = () => {
       />
       <FiltersDropdown
         uniqueCategories={uniqueCategories}
-        setCategories={setCategories}
+        selectedCategories={selectedCategories}
+        setSelectedCategories={setSelectedCategories}
         minPrice={minPrice}
         setMinPrice={setMinPrice}
         maxPrice={maxPrice}

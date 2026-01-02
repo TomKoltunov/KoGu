@@ -1,6 +1,8 @@
+import type { Dispatch, SetStateAction } from "react";
+
 export type FiltersStateContextType = {
-  categories: string[];
-  setCategories: (categories: string[]) => void;
+  selectedCategories: string[];
+  setSelectedCategories: Dispatch<SetStateAction<string[]>>;
   minPrice: number;
   setMinPrice: (price: number) => void;
   maxPrice: number;
