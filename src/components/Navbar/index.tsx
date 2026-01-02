@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styles from "./styles.module.css";
+import { NAVBAR_LINKS } from "./texts";
 
 export const Navbar = () => {
   return (
@@ -8,32 +9,17 @@ export const Navbar = () => {
         <div className={styles.brand}>KoGu</div>
 
         <div className={styles.links}>
-          <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive ? `${styles.link} ${styles.active}` : styles.link
-            }
-          >
-            Home
-          </NavLink>
-
-          <NavLink
-            to="/aboutUs"
-            className={({ isActive }) =>
-              isActive ? `${styles.link} ${styles.active}` : styles.link
-            }
-          >
-            About us
-          </NavLink>
-
-          <NavLink
-            to="/checkout"
-            className={({ isActive }) =>
-              isActive ? `${styles.link} ${styles.active}` : styles.link
-            }
-          >
-            Checkout
-          </NavLink>
+          {Object.entries(NAVBAR_LINKS).map(([key, item]) => (
+            <NavLink
+              key={key}
+              to={item.path}
+              className={({ isActive }) =>
+                isActive ? `${styles.link} ${styles.active}` : styles.link
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
         </div>
       </div>
     </nav>

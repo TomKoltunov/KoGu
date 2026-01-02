@@ -91,7 +91,7 @@
 
   /* fixed “row” height across cards */
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* same number of lines for all cards */
+  line-clamp: 3; /* same number of lines for all cards */
   -webkit-box-orient: vertical;
   overflow: hidden;
 
