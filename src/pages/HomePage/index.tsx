@@ -79,18 +79,26 @@ export const HomePage = () => {
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-      <FiltersDropdown
-        uniqueCategories={uniqueCategories}
-        selectedCategories={selectedCategories}
-        setSelectedCategories={setSelectedCategories}
-        minPrice={minPrice}
-        setMinPrice={setMinPrice}
-        maxPrice={maxPrice}
-        setMaxPrice={setMaxPrice}
-        uploadingDate={uploadingDate}
-        setUploadingDate={setUploadingDate}
-      />
-      <ProductList products={filteredProducts} />
+      {isLoading ? (
+        <span style={{ color: "red", fontSize: "3rem", fontWeight: 800 }}>
+          Loading Products...
+        </span>
+      ) : (
+        <div>
+          <FiltersDropdown
+            uniqueCategories={uniqueCategories}
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+            minPrice={minPrice}
+            setMinPrice={setMinPrice}
+            maxPrice={maxPrice}
+            setMaxPrice={setMaxPrice}
+            uploadingDate={uploadingDate}
+            setUploadingDate={setUploadingDate}
+          />
+          <ProductList products={filteredProducts} />
+        </div>
+      )}
     </div>
   );
 };

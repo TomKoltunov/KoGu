@@ -21,10 +21,12 @@ type Props = {
 
 export const CartProductsProvider = ({ children }: Props) => {
   const [cartProducts, setCartProducts] = useState<Product[]>(
-    storage.get(CART_KEY || [])
+    storage.get(CART_KEY) || []
   );
 
   const addToCart = useCallback((product: Product): void => {
+    console.log("product: ", product);
+    console.log("cartProducts: ", cartProducts);
     setCartProducts((prevCartProducts) => [...prevCartProducts, product]);
   }, []);
 
