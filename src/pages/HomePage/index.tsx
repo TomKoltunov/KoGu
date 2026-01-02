@@ -4,6 +4,7 @@ import { useFilteredProducts } from "../../hooks/useFilteredProducts";
 import { FiltersDropdown } from "./FiltersDropdown";
 import { ProductList } from "./components/ProductsList";
 import type { Product } from "../../types/productType";
+import { useDebounce } from "../../hooks/useDebounce";
 
 export const filterByUploadingDate = (
   selectedUploadingDate: string,
@@ -28,6 +29,8 @@ export const HomePage = () => {
     setUploadingDate,
   } = useFilteredProducts();
 
+  const debouncedValue = useDebounce(searchValue, 700);
+
   const uniqueCategories = useMemo(() => {
     const allCategories = products.map((product) => product.category);
     return [...new Set(allCategories)];
@@ -36,8 +39,8 @@ export const HomePage = () => {
   const filteredProducts = useMemo((): Product[] => {
     return products
       .filter((product) => {
-        return product.name.toLowerCase().includes(searchValue) ||
-          product.description.toLowerCase().includes(searchValue)
+        return product.name.toLowerCase().includes(debouncedValue) ||
+          product.description.toLowerCase().includes(debouncedValue)
           ? product
           : "";
       })
@@ -55,7 +58,7 @@ export const HomePage = () => {
       });
   }, [
     products,
-    searchValue,
+    debouncedValue,
     selectedCategories,
     minPrice,
     maxPrice,

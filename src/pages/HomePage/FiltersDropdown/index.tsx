@@ -77,7 +77,7 @@ export const FiltersDropdown = ({
       <input
         id="minPrice-select"
         type="number"
-        value={minPrice}
+        value={minPrice === 0 ? "" : minPrice}
         onChange={(e) => setMinPrice(Number(e.target.value))}
         style={{ padding: "4px" }}
       />
@@ -86,7 +86,7 @@ export const FiltersDropdown = ({
       <input
         id="maxPrice-select"
         type="number"
-        value={maxPrice}
+        value={maxPrice === 100 ? "" : maxPrice}
         onChange={(e) => setMaxPrice(Number(e.target.value))}
         style={{ padding: "4px" }}
       />
