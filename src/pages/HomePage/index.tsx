@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useProducts } from "../../hooks/useProducts";
 import { useFilteredProducts } from "../../hooks/useFilteredProducts";
-import { FiltersDropdown } from "./FiltersDropdown";
+import { FiltersDropdown } from "./components/FiltersDropdown";
 import { ProductList } from "./components/ProductsList";
 import type { Product } from "../../types/productType";
 import { useDebounce } from "../../hooks/useDebounce";

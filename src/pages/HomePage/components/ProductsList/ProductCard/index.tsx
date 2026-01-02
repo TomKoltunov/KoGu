@@ -1,5 +1,5 @@
-import { useCartProducts } from "../../../../hooks/useCartProducts";
-import type { Product } from "../../../../types/productType";
+import { useCartProducts } from "../../../../../hooks/useCartProducts";
+import type { Product } from "../../../../../types/productType";
 import styles from "./styles.module.css";
 
 type Props = {

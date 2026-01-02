@@ -25,6 +25,11 @@
   margin: 0;
   font-size: 34px;
   letter-spacing: -0.5px;
+
+  background: linear-gradient(90deg, var(--accent), #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .subtitle {
@@ -56,8 +61,8 @@
 }
 
 .search:focus {
-  border-color: rgba(0, 0, 0, 0.25);
-  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.08);
+  border-color: rgba(109, 40, 217, 0.45);
+  box-shadow: 0 0 0 4px var(--accent-soft);
 }
 
 .searchHint {
@@ -68,7 +73,7 @@
 .content {
   display: grid;
   grid-template-columns: 280px 1fr;
-  gap: 16px;
+  gap: 50px;
   align-items: start;
 }
 
