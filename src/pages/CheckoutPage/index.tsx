@@ -23,7 +23,7 @@ export const CheckoutPage = () => {
     // TODO: execute purchase (API call / dialog / navigate / etc.)
   };
 
-  const isEmpty = cartProducts.length === 0; // TODO: your real empty condition if needed
+  const isEmpty = cartProducts.length === 0;
 
   return (
     <div className={styles.page}>
@@ -60,7 +60,6 @@ export const CheckoutPage = () => {
         </section>
       ) : (
         <div className={styles.layout}>
-          {/* LEFT: Cart lines */}
           <section className={styles.cartSection}>
             <div className={styles.sectionTitle}>Cart products</div>
 
@@ -68,7 +67,6 @@ export const CheckoutPage = () => {
               {cartProducts.map((product) => {
                 return (
                   <article key={product.id} className={styles.lineCard}>
-                    {/* Top row: name + meta */}
                     <div className={styles.lineTop}>
                       <div className={styles.lineTitleWrap}>
                         <div
