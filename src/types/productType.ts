@@ -6,5 +6,5 @@ export type Product = {
   category: string;
   price: number;
   uploadingDate: string;
-  amount: number;
+  quantity: number;
 };

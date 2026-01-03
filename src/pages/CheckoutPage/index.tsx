@@ -1,77 +1,36 @@
+import { useCartProducts } from "../../hooks/useCartProducts";
+import type { Product } from "../../types/productType";
 import styles from "./styles.module.css";
 
-/**
- * TODO: replace this type with your real Product type (or import it).
- */
-type Product = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  seller: string;
-  uploadingDate: string;
-  category?: string;
-};
-
-/**
- * Each line in the cart (a product + quantity).
- * TODO: adapt to your real cart item model.
- */
-type CartLine = {
-  product: Product;
-  quantity: number;
-};
-
 export const CheckoutPage = () => {
-  /**
-   * TODO (STATE):
-   * Get your cart items from your cart hook/context/store.
-   * Example:
-   * const { cartItems, addOne, removeOne, removeAll, clearCart } = useCartProducts();
-   */
-  const cartLines: CartLine[] = []; // <-- TODO: replace with your real cart lines
-
-  /**
-   * TODO (CALC):
-   * Calculate line total:
-   * const getLineTotal = (line: CartLine) => line.product.price * line.quantity;
-   */
-  const getLineTotal = (line: CartLine): number => {
-    // TODO: implement
-    return line.product.price * line.quantity;
-  };
+  const {
+    cartProducts,
+    addToCart,
+    removeSingleInstanceFromCart,
+    removeAllInstancesFromCart,
+    resetCart,
+  } = useCartProducts();
 
   /**
    * TODO (CALC):
    * Calculate the grand total for the purchase:
    * const grandTotal = cartLines.reduce((sum, line) => sum + getLineTotal(line), 0);
    */
-  const grandTotal = 0; // <-- TODO: implement
 
-  /**
-   * TODO (HANDLERS):
-   * Wire these up to your cart logic.
-   */
-  const handleAddOne = (productId: string) => {
-    // TODO: call addOne(productId) / addToCart(product) etc.
-    void productId;
+  const getSingleProductTotalPrice = (product: Product): number => {
+    return product.price * product.quantity;
   };
 
-  const handleRemoveOne = (productId: string) => {
-    // TODO: call removeOne(productId)
-    void productId;
-  };
-
-  const handleRemoveAll = (productId: string) => {
-    // TODO: call removeAll(productId)
-    void productId;
-  };
+  const grandTotal = cartProducts.reduce(
+    (sum, product) => sum + getSingleProductTotalPrice(product),
+    0
+  );
 
   const handlePurchase = () => {
     // TODO: execute purchase (API call / dialog / navigate / etc.)
   };
 
-  const isEmpty = cartLines.length === 0; // TODO: your real empty condition if needed
+  const isEmpty = cartProducts.length === 0; // TODO: your real empty condition if needed
 
   return (
     <div className={styles.page}>
@@ -87,7 +46,7 @@ export const CheckoutPage = () => {
           <div className={styles.summaryPill}>
             {/* TODO: replace cartLines.length with total items if you track it */}
             <span className={styles.summaryLabel}>Items</span>
-            <span className={styles.summaryValue}>{cartLines.length}</span>
+            <span className={styles.summaryValue}>{cartProducts.length}</span>
           </div>
 
           <div className={styles.summaryPill}>
@@ -113,10 +72,7 @@ export const CheckoutPage = () => {
             <div className={styles.sectionTitle}>Cart products</div>
 
             <div className={styles.lines}>
-              {cartLines.map((line) => {
-                const { product, quantity } = line;
-                const lineTotal = getLineTotal(line);
-
+              {cartProducts.map((product) => {
                 return (
                   <article key={product.id} className={styles.lineCard}>
                     {/* Top row: name + meta */}
@@ -169,14 +125,16 @@ export const CheckoutPage = () => {
                       <div className={styles.controls}>
                         <div className={styles.qtyBox}>
                           <div className={styles.qtyLabel}>Quantity</div>
-                          <div className={styles.qtyValue}>{quantity}</div>
+                          <div className={styles.qtyValue}>
+                            {product.quantity}
+                          </div>
                         </div>
 
                         <div className={styles.buttons}>
                           <button
                             type="button"
                             className={`${styles.btn} ${styles.btnPrimary}`}
-                            onClick={() => handleAddOne(product.id)}
+                            onClick={() => addToCart(product)}
                           >
                             + Add one
                           </button>
@@ -184,7 +142,9 @@ export const CheckoutPage = () => {
                           <button
                             type="button"
                             className={`${styles.btn} ${styles.btnSecondary}`}
-                            onClick={() => handleRemoveOne(product.id)}
+                            onClick={() =>
+                              removeSingleInstanceFromCart(product)
+                            }
                           >
                             − Remove one
                           </button>
@@ -192,7 +152,7 @@ export const CheckoutPage = () => {
                           <button
                             type="button"
                             className={`${styles.btn} ${styles.btnDanger}`}
-                            onClick={() => handleRemoveAll(product.id)}
+                            onClick={() => removeAllInstancesFromCart(product)}
                           >
                             Remove all
                           </button>
@@ -208,9 +168,13 @@ export const CheckoutPage = () => {
                             ${product.price}
                           </span>
                           <span className={styles.mathOp}>×</span>
-                          <span className={styles.mathItem}>{quantity}</span>
+                          <span className={styles.mathItem}>
+                            {product.quantity}
+                          </span>
                           <span className={styles.mathOp}>=</span>
-                          <span className={styles.mathTotal}>${lineTotal}</span>
+                          <span className={styles.mathTotal}>
+                            ${getSingleProductTotalPrice(product).toFixed(2)}
+                          </span>
                         </div>
                       </div>
                     </div>

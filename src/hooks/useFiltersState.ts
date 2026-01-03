@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { FiltersStateContext } from "../context/FiltersStateContext";
 
-export const useFilteredProducts = () => {
+export const useFiltersState = () => {
   const context = useContext(FiltersStateContext);
 
   if (!context) {

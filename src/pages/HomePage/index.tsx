@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useProducts } from "../../hooks/useProducts";
-import { useFilteredProducts } from "../../hooks/useFilteredProducts";
+import { useFiltersState } from "../../hooks/useFiltersState";
 import { FiltersDropdown } from "./components/FiltersDropdown";
 import { ProductList } from "./components/ProductsList";
 import type { Product } from "../../types/productType";
@@ -28,11 +28,11 @@ export const HomePage = () => {
     setMaxPrice,
     uploadingDate,
     setUploadingDate,
-  } = useFilteredProducts();
+  } = useFiltersState();
 
   const debouncedValue = useDebounce(searchValue, 700);
 
-  const uniqueCategories = useMemo(() => {
+  const uniqueCategories = useMemo((): string[] => {
     const allCategories = products.map((product) => product.category);
     return [...new Set(allCategories)];
   }, [products]);
