@@ -8,14 +8,7 @@ export const CheckoutPage = () => {
     addToCart,
     removeSingleInstanceFromCart,
     removeAllInstancesFromCart,
-    resetCart,
   } = useCartProducts();
-
-  /**
-   * TODO (CALC):
-   * Calculate the grand total for the purchase:
-   * const grandTotal = cartLines.reduce((sum, line) => sum + getLineTotal(line), 0);
-   */
 
   const getSingleProductTotalPrice = (product: Product): number => {
     return product.price * product.quantity;

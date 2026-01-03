@@ -61,3 +61,43 @@
   background: rgba(109, 40, 217, 0.12);
   border: 1px solid rgba(109, 40, 217, 0.22);
 }
+
+.cartLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cartCount {
+  font-weight: 800;
+}
+
+.resetButton {
+  background: transparent;
+  border: none;
+
+  padding: 8px 12px;
+  border-radius: 10px;
+
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+
+  color: rgba(200, 40, 40, 0.9);
+
+  transition: background 160ms ease, color 160ms ease;
+}
+
+.resetButton:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: rgba(180, 20, 20, 1);
+}
+
+.resetButton:active {
+  transform: translateY(1px);
+}
+
+.resetButton:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
