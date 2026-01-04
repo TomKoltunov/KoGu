@@ -70,6 +70,24 @@ export const CartProductsProvider = ({ children }: Props) => {
     setCartProducts([]);
   }, []);
 
+  const getSingleCartProductPrice = useCallback((product: Product): number => {
+    return product.price * product.quantity;
+  }, []);
+
+  const getEntireCartProductsQuantity = (): number => {
+    return cartProducts.reduce(
+      (sum, cartProduct) => sum + cartProduct.quantity,
+      0
+    );
+  };
+
+  const getEntireCartProductsPrice = (): number => {
+    return cartProducts.reduce(
+      (sum, cartProduct) => sum + getSingleCartProductPrice(cartProduct),
+      0
+    );
+  };
+
   useEffect(() => {
     storage.set(CART_KEY, cartProducts);
   }, [cartProducts]);
@@ -82,6 +100,9 @@ export const CartProductsProvider = ({ children }: Props) => {
       removeSingleInstanceFromCart,
       removeAllInstancesFromCart,
       resetCart,
+      getSingleCartProductPrice,
+      getEntireCartProductsQuantity,
+      getEntireCartProductsPrice,
     }),
     [cartProducts]
   );

@@ -4,7 +4,10 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useCartProducts } from "../../hooks/useCartProducts";
 
 export const Navbar = () => {
-  const { cartProducts, resetCart } = useCartProducts();
+  const { cartProducts, resetCart, getEntireCartProductsQuantity } =
+    useCartProducts();
+
+  const entireCartProductsQuantity = getEntireCartProductsQuantity();
 
   return (
     <nav className={styles.nav}>
@@ -38,7 +41,9 @@ export const Navbar = () => {
           >
             <span className={styles.cartLink}>
               <ShoppingCartOutlinedIcon fontSize="small" />
-              <span className={styles.cartCount}>({cartProducts.length})</span>
+              <span className={styles.cartCount}>
+                ({entireCartProductsQuantity})
+              </span>
             </span>
           </NavLink>
           <button

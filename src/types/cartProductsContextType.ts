@@ -8,4 +8,7 @@ export type CartProductsContextType = {
   removeSingleInstanceFromCart: (product: Product) => void;
   removeAllInstancesFromCart: (product: Product) => void;
   resetCart: () => void;
+  getSingleCartProductPrice: (product: Product) => number;
+  getEntireCartProductsQuantity: () => number;
+  getEntireCartProductsPrice: () => number;
 };

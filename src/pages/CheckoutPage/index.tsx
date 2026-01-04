@@ -1,5 +1,4 @@
 import { useCartProducts } from "../../hooks/useCartProducts";
-import type { Product } from "../../types/productType";
 import styles from "./styles.module.css";
 
 export const CheckoutPage = () => {
@@ -8,20 +7,15 @@ export const CheckoutPage = () => {
     addToCart,
     removeSingleInstanceFromCart,
     removeAllInstancesFromCart,
+    getSingleCartProductPrice,
+    getEntireCartProductsPrice,
   } = useCartProducts();
-
-  const getSingleProductTotalPrice = (product: Product): number => {
-    return product.price * product.quantity;
-  };
-
-  const grandTotal = cartProducts.reduce(
-    (sum, product) => sum + getSingleProductTotalPrice(product),
-    0
-  );
 
   const handlePurchase = () => {
     // TODO: execute purchase (API call / dialog / navigate / etc.)
   };
+
+  const entireCartProductsPrice = getEntireCartProductsPrice().toFixed(2);
 
   const isEmpty = cartProducts.length === 0;
 
@@ -45,7 +39,9 @@ export const CheckoutPage = () => {
           <div className={styles.summaryPill}>
             <span className={styles.summaryLabel}>Total</span>
             {/* TODO: format as currency if you have a formatter */}
-            <span className={styles.summaryValue}>${grandTotal}</span>
+            <span className={styles.summaryValue}>
+              ${entireCartProductsPrice}
+            </span>
           </div>
         </div>
       </header>
@@ -164,7 +160,7 @@ export const CheckoutPage = () => {
                           </span>
                           <span className={styles.mathOp}>=</span>
                           <span className={styles.mathTotal}>
-                            ${getSingleProductTotalPrice(product).toFixed(2)}
+                            ${getSingleCartProductPrice(product).toFixed(2)}
                           </span>
                         </div>
                       </div>
@@ -182,7 +178,9 @@ export const CheckoutPage = () => {
 
               <div className={styles.summaryRow}>
                 <span className={styles.summaryRowLabel}>Subtotal</span>
-                <span className={styles.summaryRowValue}>${grandTotal}</span>
+                <span className={styles.summaryRowValue}>
+                  ${entireCartProductsPrice}
+                </span>
               </div>
 
               <div className={styles.summaryRow}>
@@ -196,7 +194,7 @@ export const CheckoutPage = () => {
               <div className={styles.summaryRowTotal}>
                 <span className={styles.summaryRowLabelStrong}>Total</span>
                 <span className={styles.summaryRowValueStrong}>
-                  ${grandTotal}
+                  ${entireCartProductsPrice}
                 </span>
               </div>
 
