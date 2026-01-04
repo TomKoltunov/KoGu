@@ -12,7 +12,6 @@ type Props = {
 export const CartProductsProvider = ({ children }: Props) => {
   const {
     cartProducts,
-    setCartProducts,
     addToCart,
     removeSingleInstanceFromCart,
     removeAllInstancesFromCart,
@@ -25,7 +24,6 @@ export const CartProductsProvider = ({ children }: Props) => {
   const contextValue: CartProductsContextValue = useMemo(
     () => ({
       cartProducts,
-      setCartProducts,
       addToCart,
       removeSingleInstanceFromCart,
       removeAllInstancesFromCart,

@@ -79,7 +79,6 @@ export const useCartProductsState = () => {
 
   return {
     cartProducts,
-    setCartProducts,
     addToCart,
     removeSingleInstanceFromCart,
     removeAllInstancesFromCart,
