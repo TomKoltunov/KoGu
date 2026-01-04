@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { FiltersStateContext } from "../context/FiltersStateContext";
+import { FiltersContext } from "../context/FiltersContext";
 
 export const useFiltersState = () => {
-  const context = useContext(FiltersStateContext);
+  const context = useContext(FiltersContext);
 
   if (!context) {
     throw new Error(

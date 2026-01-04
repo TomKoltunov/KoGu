@@ -1,20 +1,19 @@
 import { createContext, useMemo, useState, type ReactNode } from "react";
-import type { FiltersStateContextType } from "../types/filteredProductsContextType";
+import type { FiltersContextValue } from "../types/filtersContextValue";
 
-export const FiltersStateContext =
-  createContext<FiltersStateContextType | null>(null);
+export const FiltersContext = createContext<FiltersContextValue | null>(null);
 
 type Props = {
   children: ReactNode;
 };
 
-export const FiltersStateProvider = ({ children }: Props) => {
+export const FiltersProvider = ({ children }: Props) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(100);
   const [uploadingDate, setUploadingDate] = useState<string>("");
 
-  const contextValue: FiltersStateContextType = useMemo(
+  const contextValue: FiltersContextValue = useMemo(
     () => ({
       selectedCategories,
       setSelectedCategories,
@@ -29,8 +28,8 @@ export const FiltersStateProvider = ({ children }: Props) => {
   );
 
   return (
-    <FiltersStateContext.Provider value={contextValue}>
+    <FiltersContext.Provider value={contextValue}>
       {children}
-    </FiltersStateContext.Provider>
+    </FiltersContext.Provider>
   );
 };

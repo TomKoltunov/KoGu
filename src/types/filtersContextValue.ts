@@ -1,6 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
 
-export type FiltersStateContextType = {
+export type FiltersContextValue = {
   selectedCategories: string[];
   setSelectedCategories: Dispatch<SetStateAction<string[]>>;
   minPrice: number;

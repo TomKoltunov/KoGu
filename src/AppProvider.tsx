@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { CartProductsProvider } from "./context/CartProductsContext";
-import { FiltersStateProvider } from "./context/FiltersStateContext";
+import { FiltersProvider } from "./context/FiltersContext";
 
 type Props = {
   children: ReactNode;
@@ -8,8 +8,8 @@ type Props = {
 
 export const AppProvider = ({ children }: Props) => {
   return (
-    <FiltersStateProvider>
+    <FiltersProvider>
       <CartProductsProvider>{children}</CartProductsProvider>
-    </FiltersStateProvider>
+    </FiltersProvider>
   );
 };
