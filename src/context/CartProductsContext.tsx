@@ -1,98 +1,28 @@
-import {
-  createContext,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
-import type { Product } from "../types/productType";
-import { storage } from "../utils/storage";
-import type { CartProductsContextType } from "../types/cartProductsContextType";
-
-const CART_KEY = "cart-key";
+import { createContext, useMemo, type ReactNode } from "react";
+import type { CartProductsContextValue } from "../types/cartProductsContextValue";
+import { useCartProductsState } from "../hooks/useCartProductsState";
 
 export const CartProductsContext =
-  createContext<CartProductsContextType | null>(null);
+  createContext<CartProductsContextValue | null>(null);
 
 type Props = {
   children: ReactNode;
 };
 
 export const CartProductsProvider = ({ children }: Props) => {
-  const [cartProducts, setCartProducts] = useState<Product[]>(
-    storage.get(CART_KEY) || []
-  );
+  const {
+    cartProducts,
+    setCartProducts,
+    addToCart,
+    removeSingleInstanceFromCart,
+    removeAllInstancesFromCart,
+    resetCart,
+    getSingleCartProductPrice,
+    getEntireCartProductsQuantity,
+    getEntireCartProductsPrice,
+  } = useCartProductsState();
 
-  const addToCart = useCallback((product: Product): void => {
-    setCartProducts((prevCartProducts) => {
-      const index = prevCartProducts.findIndex(
-        (cartProduct) => cartProduct.id === product.id
-      );
-
-      if (index !== -1) {
-        return prevCartProducts.map((cartProduct) =>
-          cartProduct.id === product.id
-            ? { ...cartProduct, quantity: cartProduct.quantity + 1 }
-            : cartProduct
-        );
-      }
-
-      return [...prevCartProducts, { ...product, quantity: 1 }];
-    });
-  }, []);
-
-  const removeSingleInstanceFromCart = useCallback((product: Product): void => {
-    setCartProducts((prevCartProducts) => {
-      const index = prevCartProducts.findIndex(
-        (cartProduct) => cartProduct.id === product.id
-      );
-
-      if (index !== -1) {
-        return prevCartProducts.map((cartProduct) =>
-          cartProduct.id === product.id
-            ? { ...cartProduct, quantity: cartProduct.quantity - 1 }
-            : cartProduct
-        );
-      } else {
-        return [...prevCartProducts];
-      }
-    });
-  }, []);
-
-  const removeAllInstancesFromCart = useCallback((product: Product): void => {
-    setCartProducts((prevCartProducts) =>
-      prevCartProducts.filter((cartProduct) => cartProduct.id !== product.id)
-    );
-  }, []);
-
-  const resetCart = useCallback((): void => {
-    setCartProducts([]);
-  }, []);
-
-  const getSingleCartProductPrice = useCallback((product: Product): number => {
-    return product.price * product.quantity;
-  }, []);
-
-  const getEntireCartProductsQuantity = (): number => {
-    return cartProducts.reduce(
-      (sum, cartProduct) => sum + cartProduct.quantity,
-      0
-    );
-  };
-
-  const getEntireCartProductsPrice = (): number => {
-    return cartProducts.reduce(
-      (sum, cartProduct) => sum + getSingleCartProductPrice(cartProduct),
-      0
-    );
-  };
-
-  useEffect(() => {
-    storage.set(CART_KEY, cartProducts);
-  }, [cartProducts]);
-
-  const contextValue: CartProductsContextType = useMemo(
+  const contextValue: CartProductsContextValue = useMemo(
     () => ({
       cartProducts,
       setCartProducts,

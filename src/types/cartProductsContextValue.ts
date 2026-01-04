@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import type { Product } from "./productType";
 
-export type CartProductsContextType = {
+export type CartProductsContextValue = {
   cartProducts: Product[];
   setCartProducts: Dispatch<SetStateAction<Product[]>>;
   addToCart: (product: Product) => void;
