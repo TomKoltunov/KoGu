@@ -8,8 +8,11 @@ type Props = {
 
 export const AppProvider = ({ children }: Props) => {
   return (
-    <FiltersProvider>
-      <CartProductsProvider>{children}</CartProductsProvider>
-    </FiltersProvider>
+    <CartProductsProvider>
+      <FiltersProvider>{children}</FiltersProvider>
+    </CartProductsProvider>
+    // <FiltersProvider>
+    //   <CartProductsProvider>{children}</CartProductsProvider>
+    // </FiltersProvider>
   );
 };

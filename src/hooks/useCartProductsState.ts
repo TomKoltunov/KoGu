@@ -5,9 +5,8 @@ import { storage } from "../utils/storage";
 export const CART_KEY = "cart-key" as const;
 
 export const useCartProductsState = () => {
-  const [cartProducts, setCartProducts] = useState<Product[]>(
-    storage.get(CART_KEY) || []
-  );
+  const [cartProducts, setCartProducts] =
+    useState<Product[]>(storage.get(CART_KEY)) || [];
 
   useEffect(() => {
     storage.set(CART_KEY, cartProducts);

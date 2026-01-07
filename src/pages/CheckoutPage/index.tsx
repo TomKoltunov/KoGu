@@ -1,4 +1,5 @@
 import { useCartProducts } from "../../hooks/useCartProducts";
+import { RecommendedSection } from "./RecommendedSection";
 import styles from "./styles.module.css";
 
 export const CheckoutPage = () => {
@@ -214,6 +215,8 @@ export const CheckoutPage = () => {
               </div>
             </div>
           </aside>
+          <div style={{ marginTop: "100px" }}></div>
+          <RecommendedSection />
         </div>
       )}
     </div>

@@ -1,25 +1,18 @@
-import { useMemo, useState } from "react";
 import { useProducts } from "../../hooks/useProducts";
-import { useFiltersState } from "../../hooks/useFiltersState";
 import { FiltersDropdown } from "./components/FiltersDropdown";
 import { ProductList } from "./components/ProductsList";
-import type { Product } from "../../types/productType";
-import { useDebounce } from "../../hooks/useDebounce";
 import styles from "./styles.module.css";
-
-export const filterByUploadingDate = (
-  selectedUploadingDate: string,
-  uploadingDate: string
-): boolean => {
-  const productDateObject = new Date(selectedUploadingDate);
-  const filteredDateObject = new Date(uploadingDate);
-  return productDateObject.getTime() < filteredDateObject.getTime();
-};
+import { useFilters } from "../../hooks/useFilters";
 
 export const HomePage = () => {
-  const { products, isLoading } = useProducts({ delay: 500 });
-  const [searchValue, setSearchValue] = useState<string>("");
+  const { isLoading } = useProducts({ delay: 500 });
+
   const {
+    searchValue,
+    setSearchValue,
+    debouncedValue,
+    filteredProducts,
+    uniqueCategories,
     selectedCategories,
     setSelectedCategories,
     minPrice,
@@ -28,43 +21,7 @@ export const HomePage = () => {
     setMaxPrice,
     uploadingDate,
     setUploadingDate,
-  } = useFiltersState();
-
-  const debouncedValue = useDebounce(searchValue, 700);
-
-  const uniqueCategories = useMemo((): string[] => {
-    const allCategories = products.map((product) => product.category);
-    return [...new Set(allCategories)];
-  }, [products]);
-
-  const filteredProducts = useMemo((): Product[] => {
-    return products
-      .filter((product) => {
-        return product.name.toLowerCase().includes(debouncedValue) ||
-          product.description.toLowerCase().includes(debouncedValue)
-          ? product
-          : "";
-      })
-      .filter((product) => {
-        if (selectedCategories.length === 0) return true;
-        return selectedCategories.includes(product.category);
-      })
-      .filter((product) => {
-        return product.price >= minPrice && product.price <= maxPrice
-          ? product
-          : "";
-      })
-      .filter((product) => {
-        return !filterByUploadingDate(product.uploadingDate, uploadingDate);
-      });
-  }, [
-    products,
-    debouncedValue,
-    selectedCategories,
-    minPrice,
-    maxPrice,
-    uploadingDate,
-  ]);
+  } = useFilters();
 
   return (
     <div className={styles.page}>
